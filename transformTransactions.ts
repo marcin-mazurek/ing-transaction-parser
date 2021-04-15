@@ -19,14 +19,21 @@ function isInternalTransfer(transaction) {
       || transaction[DESCRIPTION_LINE_2_INDEX].includes('Own transfer')));
 }
 
+function hasAmount(transaction) {
+  if (!transaction[AMOUNT_INDEX] || !transaction[AMOUNT_INDEX].length || transaction[AMOUNT_INDEX].indexOf(',') === -1) {
+    console.warn(`Unexpected amount: '${transaction[AMOUNT_INDEX]}'`);
+    return false;
+  }
+
+  return true;
+}
+
 export const transformTransactions = (rawTransactions: Array<Array<string>>): Transaction[] => {
   return rawTransactions.reverse()
     .filter(transaction => !isInternalTransfer(transaction))
+    .filter(hasAmount)
     .map(transaction => {
-      if (!transaction[AMOUNT_INDEX] || !transaction[AMOUNT_INDEX].length || transaction[AMOUNT_INDEX].indexOf(',') === -1) {
-        throw new Error('Unexpected amount: ' + transaction[AMOUNT_INDEX]);
-      }
-
+      
       const amount = Number(transaction[AMOUNT_INDEX]!.replace(',', '.'));
       const description = transaction[DESCRIPTION_LINE_1_INDEX].trim() + ' ' + transaction[DESCRIPTION_LINE_2_INDEX].trim();
 
