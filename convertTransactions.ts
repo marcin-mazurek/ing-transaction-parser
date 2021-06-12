@@ -35,7 +35,7 @@ export const convertTransactions = async () => {
   console.log('Income saved to: ' + incomeCSVFilePath);
 
   await jetpack.writeAsync(expensesCSVFilePath, expensesCSV);
-  console.log('Expenses saved to: ' + incomeCSVFilePath);
+  console.log('Expenses saved to: ' + expensesCSVFilePath);
 };
 
 convertTransactions().catch(error => console.error(error));

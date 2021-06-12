@@ -86,5 +86,6 @@ export const categoryPatterns = {
   'Skycash': 'Transport / Tickets',
   'autobus': 'Transport / Tickets',
   'patronite': 'Donations',
-  'efl': 'Transport / Car leasing'
+  'efl': 'Transport / Car leasing',
+  'traficar': 'Transport / Car rental'
 };
